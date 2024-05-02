@@ -1,2 +1,0 @@
-# sjovmedtal
-sjovmedtal
