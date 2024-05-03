@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 498017392236388192}
   - component: {fileID: 1825206640722165624}
   m_Layer: 5
-  m_Name: addNewDragable
+  m_Name: buttonAddNewDragable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
