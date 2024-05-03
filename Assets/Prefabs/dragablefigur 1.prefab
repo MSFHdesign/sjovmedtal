@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4294492340765950142}
   - component: {fileID: 167735282031907765}
   - component: {fileID: 1144199213612383419}
+  - component: {fileID: 8042598908035212240}
+  - component: {fileID: 7089592621294178253}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -42,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 998104289670720176}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &4294492340765950142
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -63,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ae9bd7540db1dff4fb44120f0207ab72, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123,7 +125,37 @@ MonoBehaviour:
   - {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
   - {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  selectedMeshIndex: 0
+  selectedMeshIndex: 1
+--- !u!114 &8042598908035212240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998104289670720176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90835d201fba8e748896d865ff5a958c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShouldItDrag: 1
+--- !u!114 &7089592621294178253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998104289670720176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f0b2ad19bf4e341bab77f0335fd41c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorOptions:
+  - {r: 0, g: 0.5384617, b: 1, a: 0}
+  - {r: 0.36862746, g: 0.86666673, b: 0.12941177, a: 0}
+  - {r: 0.8666667, g: 0.12941176, b: 0.16548365, a: 0}
+  colorIndex: 0
 --- !u!1 &1907305205479580438
 GameObject:
   m_ObjectHideFlags: 0

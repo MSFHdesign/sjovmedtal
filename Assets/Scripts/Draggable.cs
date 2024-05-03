@@ -4,27 +4,30 @@ public class Drag : MonoBehaviour
 {
     private bool dragging = false;
     private Vector3 offset;
+    public bool ShouldItDrag; // Denne variabel kontrollerer, om objektet skal kunne trækkes
 
-    // Update is called once per frame
     void Update()
     {
-        if (dragging)
+        if (dragging && ShouldItDrag)
         {
-            // Move object, taking into account original offset.
+            // Flyt objektet, idet den oprindelige offset tages i betragtning
             transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
         }
     }
 
     private void OnMouseDown()
     {
-        // Record the difference between the objects centre, and the clicked point on the camera plane.
-        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        dragging = true;
+        if (ShouldItDrag) // Tjekker om objektet bør kunne trækkes
+        {
+            // Optag forskellen mellem objektets centrum og det klikkede punkt på kameraplanet
+            offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            dragging = true;
+        }
     }
 
     private void OnMouseUp()
     {
-        // Stop dragging.
+        // Stop med at trække
         dragging = false;
     }
 }
