@@ -4,26 +4,15 @@ using UnityEngine;
 
 public class Quest : MonoBehaviour
 {
-    public Sequence[] sequences;
+    public Sequence sandboxSequence;
+    public UIs sandboxUI;
 
     void Start()
     {
-        // Ensure that sequences is not empty and contains at least one Sequence with a dialogue.
-        if (sequences != null && sequences.Length > 0 && sequences[0].dialog.Length > 0)
-        {
-            string dialog = sequences[0].GetNextDialogue(); // Declare 'dialog' as a string
-            if (dialog != null)
-            {
-                Debug.Log(dialog);
-            }
-            else
-            {
-                Debug.Log("No more dialogues available.");
-            }
-        }
-        else
-        {
-            Debug.Log("Sequences are not properly initialized.");
-        }
+        // Assuming DialogManager provides a sequence for dialogs related to quests
+        sandboxSequence = DialogManager.Instance.GetSequence(0);
+
+        // Assuming UIManager manages different UI panels or elements and you want to get a UI element named "Sandbox"
+        sandboxUI = UIManager.Instance.GetUI("Sandbox");
     }
 }
