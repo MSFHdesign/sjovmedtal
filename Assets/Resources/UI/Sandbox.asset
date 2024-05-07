@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba00f85bd9ed8ec4cb5e9257538b764c, type: 3}
   m_Name: Sandbox
   m_EditorClassIdentifier: 
-  uiName: miniGame
-  uiPrefab: {fileID: 0}
+  uiName: Sandbox
+  uiPrefab: {fileID: 2918706559577783439, guid: 8de830c00a33ef34db1c02dfb1a437b8, type: 3}
   isActiveByDefault: 1

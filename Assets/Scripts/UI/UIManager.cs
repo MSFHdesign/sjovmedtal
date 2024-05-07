@@ -1,40 +1,46 @@
 using Thrakal;
 using UnityEngine;
-
+using TMPro;
 public class UIManager : Singleton<UIManager>
 {
-    public UIs[] UI;
-    public override void Awake()
+   
+   [SerializeField] private CanvasGroup GamePanel;
+   [SerializeField] private TextMeshProUGUI DialogText;
+   [SerializeField] private CanvasGroup DialogBox;
+
+
+
+    public void showGamePanel()
     {
-        base.Awake();
-        UI = Resources.LoadAll<UIs>("UI");
-        if (UI == null || UI.Length == 0)
-        {
-            Debug.LogError("No UI elements found in the Resources/UI folder.");
-        }
-        else
-        {
-            Debug.Log("Loaded " + UI.Length + " UI elements.");
-        }
+        GamePanel.alpha = 1;
+        GamePanel.interactable= true;
+        GamePanel.blocksRaycasts = true;
     }
+    
+  
 
-    public UIs GetUI(int index)
+    public void showDialog(string message)
     {
-        if (index >= 0 && index < UI.Length)  
-        {
-            return UI[index];
-        }
-        return null;
+
+    DialogText.text = message;
+        DialogBox.alpha = 1;
+        DialogBox.interactable= true;
+        DialogBox.blocksRaycasts = true;
+
     }
-
-    public UIs GetUI(string UiName)
+    public void hideButtons()
     {
-        for (int i = 0; i < UI.Length; i++)
-        {
-            if (UI[i].uiName == UiName) 
-                return UI[i];
-        }
+        GamePanel.alpha = 0;
+        GamePanel.interactable = false;
+        GamePanel.blocksRaycasts = false;
+    }
+    public void hideDialog()
+    {
+        DialogText.text = "";
+        DialogBox.alpha = 0;
+        DialogBox.interactable= false;
+        DialogBox.blocksRaycasts = false;
 
-        return null;
     }
 }
+
