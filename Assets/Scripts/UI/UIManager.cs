@@ -4,9 +4,11 @@ using TMPro;
 public class UIManager : Singleton<UIManager>
 {
    
-   [SerializeField] private CanvasGroup GamePanel;
-   [SerializeField] private TextMeshProUGUI DialogText;
-   [SerializeField] private CanvasGroup DialogBox;
+    [SerializeField] private CanvasGroup GamePanel;
+    [SerializeField] private TextMeshProUGUI DialogText;
+    [SerializeField] private CanvasGroup DialogBox;
+    [SerializeField] private TextMeshProUGUI GameTitle;
+
 
 
 
@@ -18,6 +20,10 @@ public class UIManager : Singleton<UIManager>
     }
     
   
+    public void showTitle(string message)
+    {
+        GameTitle.text = message;
+    }
 
     public void showDialog(string message)
     {
