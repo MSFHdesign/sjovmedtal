@@ -17,11 +17,11 @@ public class DialogManager : Singleton<DialogManager>
         return sequences[index];
     }
 
-    public Sequence GetSequence(string name)
+    public Sequence GetSequence(string sequenceName)
     {
         for(int i = 0; i < sequences.Length; i++)
         {
-            if (sequences[i].name == name)
+            if (sequences[i].sequenceName == sequenceName)
                 return sequences[i];
         }
 

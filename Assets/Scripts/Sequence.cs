@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Sequence", menuName = "ScriptableObjects/Sequence", order = 1)]
 public class Sequence : ScriptableObject
 {
-    public string name;
+    public string sequenceName;
     public int value;
     public Shapes[] acceptedShapes;
     public string[] dialog;
