@@ -15,7 +15,7 @@ public class StartGame : MonoBehaviour
      
         // Bruger scenens navn til at hente den tilsvarende Sequence
         string sceneName = SceneManager.GetActiveScene().name;
-
+        UIManager.Instance.ShowDeleteZone(); // Viser slet knappen
         // Viser titlen baseret på om titleName er sat eller ej
         if (string.IsNullOrEmpty(titleName))
         {
@@ -52,6 +52,7 @@ public class StartGame : MonoBehaviour
 
         }
         UIManager.Instance.hideDialog(); // Skjuler dialogen når alle er vist
+
     }
 
 }

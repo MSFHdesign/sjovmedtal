@@ -5,8 +5,10 @@ public class UIManager : Singleton<UIManager>
 {
    // Spillerens panel i bunden.
     [SerializeField] private CanvasGroup GamePanel;
-    [SerializeField] private CanvasGroup DeletePanel;
-   // Dialog teksten. 
+    // Slet knappen game object.
+    [SerializeField] private GameObject deleteZone; 
+
+    // Dialog teksten. 
     [SerializeField] private TextMeshProUGUI DialogText;
     // Dialog boksen.
     [SerializeField] private CanvasGroup DialogBox;
@@ -26,18 +28,14 @@ public class UIManager : Singleton<UIManager>
         GamePanel.alpha = 1;
         GamePanel.interactable= true;
         GamePanel.blocksRaycasts = true;
-        DeletePanel.alpha = 1;
-        DeletePanel.interactable = true;
-        DeletePanel.blocksRaycasts = true;
+     
     }
     public void hideGamePanel()
     {
         GamePanel.alpha = 0;
         GamePanel.interactable = false;
         GamePanel.blocksRaycasts = false;
-        DeletePanel.alpha = 0;
-        DeletePanel.interactable = false;
-        DeletePanel.blocksRaycasts = false;
+   
     }
 
 
@@ -80,6 +78,19 @@ public class UIManager : Singleton<UIManager>
         DialogBox.interactable= false;
         DialogBox.blocksRaycasts = false;
 
+    }
+
+
+    public void ShowDeleteZone()
+    {
+        if (deleteZone != null)
+            deleteZone.SetActive(true);  // Aktiverer DeleteZone
+    }
+
+    public void HideDeleteZone()
+    {
+        if (deleteZone != null)
+            deleteZone.SetActive(false);  // Deaktiverer DeleteZone
     }
 }
 

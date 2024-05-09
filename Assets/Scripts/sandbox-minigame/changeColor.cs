@@ -1,24 +1,21 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class ChangeColor : MonoBehaviour
+public class ChangeMaterial : MonoBehaviour
 {
-    public List<Color> colorOptions = new List<Color>();
-    public int colorIndex = 0;
+    public List<Material> materialOptions = new List<Material>();
+    public int materialIndex = 0;
 
     void Start()
     {
         MeshRenderer renderer = GetComponent<MeshRenderer>();
-        if (renderer != null && colorOptions.Count > 0)
+        if (renderer != null && materialOptions.Count > 0)
         {
-            colorIndex = Mathf.Clamp(colorIndex, 0, colorOptions.Count - 1);
-            Color selectedColor = colorOptions[colorIndex];
+            materialIndex = Mathf.Clamp(materialIndex, 0, materialOptions.Count - 1);
+            Material selectedMaterial = materialOptions[materialIndex];
 
-            // Anvend den valgte farve til alle materialer på Mesh Renderer
-            foreach (var material in renderer.materials)
-            {
-                material.color = selectedColor;
-            }
+            // Anvend det valgte materiale til Mesh Renderer
+            renderer.material = selectedMaterial; // Skifter hele objektets materiale
         }
     }
 }
