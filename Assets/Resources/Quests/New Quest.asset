@@ -15,8 +15,10 @@ MonoBehaviour:
   QuestName: test
   Shapes: []
   Description:
-  - 
-  IsCompleted: 1
-  RequiredAmount: 1
+  - Endnu en test fra test
+  - 2 test dog...
+  IsCompleted: 0
+  RequiredAmount: 2
   CurrentAmount: 1
   RewardId: 43
+  Status: ...

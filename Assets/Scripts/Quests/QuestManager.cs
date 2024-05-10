@@ -18,9 +18,24 @@ public class QuestManager : Singleton<QuestManager>
             if (quest.QuestName == questName)
                 return quest;
         }
-        Debug.Log("Quest not found: " + questName);
+        Debug.Log("QM: Quest not found: " + questName);
         return null;
     }
+
+    public void UpdateStatus(string questName, string status)
+    {
+        Quest quest = GetQuest(questName);
+        if (quest != null)
+        {
+            quest.Status = status;
+            Debug.Log($"QM: Quest '{questName}' status updated to: {status}");
+        }
+        else
+        {
+            Debug.LogError($"QM: Quest with name '{questName}' not found.");
+        }
+    }
+
 
     public bool CheckQuestCompletionByName(string questName)
     {
@@ -28,25 +43,25 @@ public class QuestManager : Singleton<QuestManager>
 
         if (quest == null)
         {
-            Debug.LogError($"Quest with name '{questName}' not found.");
+            Debug.LogError($"QM: Quest with name '{questName}' not found.");
+            return false;
+        }
+
+
+        if (quest.CurrentAmount < quest.RequiredAmount)
+        {
+            quest.IsCompleted = false;
+            Debug.Log($"QM: Quest '{quest.QuestName}' not completed: {quest.CurrentAmount} / {quest.RequiredAmount}");
+            CompleteQuest(quest);
             return false;
         }
 
         if (quest.IsCompleted)
         {
-            Debug.Log("Quest already completed.");
+            Debug.Log($"QM: Quest '{quest.QuestName}' already completed.");
             return true;
         }
 
-        if (quest.CurrentAmount >= quest.RequiredAmount)
-        {
-            quest.IsCompleted = true;
-            Debug.Log($"Quest '{quest.QuestName}' completed: {quest.CurrentAmount} / {quest.RequiredAmount}");
-            CompleteQuest(quest);
-            return true;
-        }
-
-        Debug.Log($"Quest '{quest.QuestName}' not yet completed: {quest.CurrentAmount} / {quest.RequiredAmount}");
         return false;
     }
 

@@ -10,6 +10,7 @@ public class Quest : ScriptableObject
     public int RequiredAmount;
     public int CurrentAmount = 0;
     public int RewardId;
+    public string Status;
 
     public void CheckCompletion()
     {
