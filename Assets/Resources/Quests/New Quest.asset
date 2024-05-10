@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba00f85bd9ed8ec4cb5e9257538b764c, type: 3}
-  m_Name: Sandbox
+  m_Script: {fileID: 11500000, guid: 23cdff05cd19e2e4c93916a03e63d65b, type: 3}
+  m_Name: New Quest
   m_EditorClassIdentifier: 
-  uiName: Sandbox
-  uiPrefab: {fileID: 2918706559577783439, guid: 8de830c00a33ef34db1c02dfb1a437b8, type: 3}
-  isActiveByDefault: 1
+  QuestName: test
+  Shapes: []
+  Description:
+  - 
+  IsCompleted: 1
+  RequiredAmount: 1
+  CurrentAmount: 1
+  RewardId: 43

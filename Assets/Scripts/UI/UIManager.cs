@@ -18,6 +18,11 @@ public class UIManager : Singleton<UIManager>
 
     // baggrunds prefabbem
     [SerializeField] private GameObject Background;
+    // Quest progress
+    [SerializeField] private TextMeshProUGUI currentScore;
+    [SerializeField] private TextMeshProUGUI RequiredAmount;
+    [SerializeField] private CanvasGroup ScoreGroup;
+
 
 
 

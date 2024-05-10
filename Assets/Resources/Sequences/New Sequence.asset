@@ -10,14 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0194798aff19b534d977376375e4b599, type: 3}
-  m_Name: minigame
+  m_Name: New Sequence
   m_EditorClassIdentifier: 
   sequenceName: miniGame
   value: 0
-  acceptedShapes: 
   dialog:
-  - Hej og velkommen til Sjov med former!
-  - Du kan lege med formerne og skabe nogle sjove figure.
-  - "Du kan ogs\xE5 f\xF8lge opgaverne og skabe nogle figur med mig og optjene XXXXX
-    til dit XXXXXXX"
-  rewardId: 0
+  - Hello world

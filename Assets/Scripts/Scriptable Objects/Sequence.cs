@@ -5,10 +5,8 @@ public class Sequence : ScriptableObject
 {
     public string sequenceName;
     public int value;
-    public Shapes[] acceptedShapes;
     public string[] dialog;
     private int currentDialogueIndex = 0;
-    public int rewardId;
 
     // This method returns the next dialogue entry or null if there are no more entries.
     public string GetNextDialogue()
@@ -28,11 +26,4 @@ public class Sequence : ScriptableObject
     {
         currentDialogueIndex = 0;
     }
-}
-
-public enum Shapes
-{
-    Circle,
-    Square,
-    Triangle
 }
