@@ -15,7 +15,7 @@ MonoBehaviour:
   QuestName: test
   Shapes: []
   Description:
-  - Endnu en test fra test
+  - QUEST STARTER HER!
   - 2 test dog...
   IsCompleted: 0
   RequiredAmount: 2

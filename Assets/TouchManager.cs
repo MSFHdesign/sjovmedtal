@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class TouchManager : MonoBehaviour
 {
+    // Save finger id for first two fingers
+    // Check for those ids when checking all touch inputs
+    // Direction between two positions = rotation start
+    // Direction between two positions = rotation difference - start
+    // Vector2.Angle(start, difference)
+
     void Update()
     {
         for(int i = 0; Input.touchCount > i; i++)
@@ -12,8 +18,7 @@ public class TouchManager : MonoBehaviour
             if(touch.phase == TouchPhase.Began)
             {
                 Debug.Log("Touch Began");
-
-                touch
+                
             }
             if(touch.phase == TouchPhase.Moved)
             {
@@ -27,7 +32,7 @@ public class TouchManager : MonoBehaviour
             {
                 Debug.Log("Touch Ended");
             }
-            if(touch.phase == TouchPhase.Canceled)
+            if (touch.phase == TouchPhase.Canceled) ;
             {
                 Debug.Log("Touch Canceled");
             }

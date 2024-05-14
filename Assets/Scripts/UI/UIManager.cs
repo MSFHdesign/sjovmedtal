@@ -22,6 +22,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI currentScore;
     [SerializeField] private TextMeshProUGUI RequiredAmount;
     [SerializeField] private CanvasGroup ScoreGroup;
+    
 
 
 
