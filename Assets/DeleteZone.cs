@@ -4,19 +4,25 @@ public class DeleteZone : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Drag dragScript = other.GetComponent<Drag>();
-        if (dragScript != null)
+        if (other.CompareTag("SpawnedObject"))
         {
-            dragScript.SetCanDrop(true);  // Fortæller Drag scriptet at det er over slettezonen
+            TouchManager touchManager = FindObjectOfType<TouchManager>();
+            if (touchManager != null)
+            {
+                touchManager.SetObjectInDeleteZone(true);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Drag dragScript = other.GetComponent<Drag>();
-        if (dragScript != null)
+        if (other.CompareTag("SpawnedObject"))
         {
-            dragScript.SetCanDrop(false);  // Fortæller Drag scriptet at det ikke længere er over slettezonen
+            TouchManager touchManager = FindObjectOfType<TouchManager>();
+            if (touchManager != null)
+            {
+                touchManager.SetObjectInDeleteZone(false);
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - UI
   - SpawnedObject
+  - Interactable
   layers:
   - Default
   - TransparentFX

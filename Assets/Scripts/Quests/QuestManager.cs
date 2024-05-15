@@ -98,4 +98,39 @@ public class QuestManager : Singleton<QuestManager>
         // Implementer logikken for at give belønninger her
         Debug.Log($"Reward given: {rewardId}");
     }
+    // get info about quest: RequiredAmount & CurrentAmount;
+    public string GetQuestInfo(string questName)
+    {
+        Quest quest = GetQuest(questName);
+        if (quest == null)
+        {
+            Debug.LogError($"Quest with name '{questName}' not found.");
+            return null;
+        }
+        return $"{quest.CurrentAmount}/{quest.RequiredAmount}";
+    }
+    // get info individual required amount
+    public int GetQuestRequiredAmount(string questName)
+    {
+        Quest quest = GetQuest(questName);
+        if (quest == null)
+        {
+            Debug.LogError($"Quest with name '{questName}' not found.");
+            return 0;
+        }
+        return quest.RequiredAmount;
+    }
+    // get info individual current amount
+    public int GetQuestCurrentAmount(string questName)
+    {
+        Quest quest = GetQuest(questName);
+        if (quest == null)
+        {
+            Debug.LogError($"Quest with name '{questName}' not found.");
+            return 0;
+        }
+        return quest.CurrentAmount;
+    }
+
+
 }

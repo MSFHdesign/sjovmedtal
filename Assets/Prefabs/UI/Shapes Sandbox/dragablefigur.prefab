@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4294492340765950142}
   - component: {fileID: 167735282031907765}
   - component: {fileID: 1144199213612383419}
-  - component: {fileID: 8042598908035212240}
-  - component: {fileID: 7089592621294178253}
+  - component: {fileID: 8947532070535410561}
   - component: {fileID: 8938504927348694961}
+  - component: {fileID: 7312312378327365120}
   m_Layer: 6
   m_Name: Cube
   m_TagString: SpawnedObject
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 718c82b05e31faa4fb76ff5cc4a2c46e, type: 2}
+  - {fileID: 2100000, guid: 78c7ffcd416b3fb4da34c9f05bca1f7f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
   - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   - {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   selectedMeshIndex: 0
---- !u!114 &8042598908035212240
+--- !u!114 &8947532070535410561
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,25 +137,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 998104289670720176}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90835d201fba8e748896d865ff5a958c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9496ca2daff1f6143b5050a636df4df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShouldItDrag: 1
---- !u!114 &7089592621294178253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998104289670720176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f0b2ad19bf4e341bab77f0335fd41c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  materialOptions:
-  - {fileID: 2100000, guid: ae9bd7540db1dff4fb44120f0207ab72, type: 2}
-  materialIndex: 0
+  selectedMaterial: {fileID: 2100000, guid: 781e88879a9ba594fa8f307000da3309, type: 2}
+  overDeleteZoneMaterial: {fileID: 2100000, guid: c5a326c81c4662a459a798ba4c7c4cb5, type: 2}
 --- !u!54 &8938504927348694961
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -183,6 +169,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7312312378327365120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998104289670720176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13102d7618604ae4585f2732e19a48c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlitMaterial: {fileID: 2100000, guid: 78c7ffcd416b3fb4da34c9f05bca1f7f, type: 2}
 --- !u!1 &1907305205479580438
 GameObject:
   m_ObjectHideFlags: 0
