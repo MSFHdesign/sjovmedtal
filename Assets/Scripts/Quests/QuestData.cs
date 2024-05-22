@@ -24,7 +24,7 @@ public class QuestData : ScriptableObject
 
     public string questName;
     public Sprite winningReference; // Reference sprite for the winning condition
-    public List <string> questDescription;
+    public List<string> questDescription;
     public List<ShapeRequirement> requiredShapes; // List of shapes required to complete the quest
     public int requiredAmount;
     public int currentAmount;

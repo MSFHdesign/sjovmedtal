@@ -44,17 +44,20 @@ public class DialogManager : Singleton<DialogManager>
             foreach (var dialog in quest.questDescription)
             {
                 dialogQueue.Enqueue(dialog);
+                Debug.Log("DialogManager: Enqueued dialog from quest: " + dialog);
             }
         }
     }
 
-    public void PlaySequencesAndQuestDialogs()
+    public void PlaySequences()
     {
-        StartCoroutine(PlaySequencesAndQueue());
+        StartCoroutine(PlaySequencesCoroutine());
     }
 
-    private IEnumerator PlaySequencesAndQueue()
+    private IEnumerator PlaySequencesCoroutine()
     {
+        Debug.Log("DialogManager: Starting to play sequences.");
+
         // Assuming each sequence has a dialog array to play
         foreach (var sequence in sequences)
         {
@@ -64,12 +67,7 @@ public class DialogManager : Singleton<DialogManager>
             }
         }
 
-        // Now process the dialog queue
-        while (dialogQueue.Count > 0)
-        {
-            var dialog = dialogQueue.Dequeue();
-            yield return StartCoroutine(PlayDialog(dialog));
-        }
+        Debug.Log("DialogManager: Finished playing sequences.");
     }
 
     private IEnumerator PlayDialog(string dialog)
@@ -81,5 +79,17 @@ public class DialogManager : Singleton<DialogManager>
         float dynamicWaitTime = Mathf.Max(words / 3, 2); // Adjust according to your wordsPerSecond and minWaitTime
         yield return new WaitForSeconds(dynamicWaitTime);
         UIManager.Instance.hideDialog();
+    }
+
+    // Method to play current quest's description
+    public void PlayQuestDescription(string description)
+    {
+        Debug.Log("DialogManager: Playing quest description: " + description);
+        StartCoroutine(PlayQuestDescriptionCoroutine(description));
+    }
+
+    private IEnumerator PlayQuestDescriptionCoroutine(string description)
+    {
+        yield return StartCoroutine(PlayDialog(description));
     }
 }

@@ -2,6 +2,7 @@ using Thrakal;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+
 public class QuestManager : Singleton<QuestManager>
 {
     public QuestData[] quests;
@@ -19,7 +20,6 @@ public class QuestManager : Singleton<QuestManager>
         quests = Resources.LoadAll<QuestData>(path);
         incompleteQuests = GetIncompleteQuests();
         Debug.Log("QM: Number of incomplete quests found: " + incompleteQuests.Length);
- 
     }
 
     public QuestData GetQuest(string questName)
@@ -35,7 +35,23 @@ public class QuestManager : Singleton<QuestManager>
 
     private QuestData[] GetIncompleteQuests()
     {
-        return quests.Where(quest => !quest.isCompleted).ToArray();
+        QuestData[] incomplete = quests.Where(quest => !quest.isCompleted).ToArray();
+        ShuffleQuests(incomplete); // Shuffle the quests
+        return incomplete;
+    }
+
+    private void ShuffleQuests(QuestData[] array)
+    {
+        System.Random rng = new System.Random();
+        int n = array.Length;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            QuestData value = array[k];
+            array[k] = array[n];
+            array[n] = value;
+        }
     }
 
     public void UpdateStatus(string questName, string status)
@@ -62,7 +78,6 @@ public class QuestManager : Singleton<QuestManager>
             return false;
         }
 
-        // Find all ShapeComponent instances in the scene (representing the player's created shapes)
         var playerShapes = FindObjectsOfType<ShapeComponent>().ToList();
         Debug.Log($"QM: Player shapes count: {playerShapes.Count}, Required shapes count: {quest.requiredShapes.Count}");
 
@@ -71,7 +86,6 @@ public class QuestManager : Singleton<QuestManager>
             Debug.Log($"QM: Player shape found: {shape.shapeType}");
         }
 
-        // If the number of player shapes is less than the required shapes, the quest is not completed
         if (playerShapes.Count < quest.requiredShapes.Count)
         {
             Debug.Log("QM: Not enough shapes created by player.");
@@ -79,7 +93,6 @@ public class QuestManager : Singleton<QuestManager>
             return false;
         }
 
-        // Check if each required shape is present among the player's created shapes
         foreach (var requiredShape in quest.requiredShapes)
         {
             bool shapeFound = playerShapes.Any(shape => shape.shapeType == requiredShape.shapeType);
@@ -92,7 +105,6 @@ public class QuestManager : Singleton<QuestManager>
             }
         }
 
-        // If all required shapes are present, the quest is completed
         quest.isCompleted = true;
         Debug.Log($"QM: Quest '{quest.questName}' completed.");
         return true;
@@ -137,7 +149,14 @@ public class QuestManager : Singleton<QuestManager>
         {
             QuestData currentQuest = incompleteQuests[currentQuestIndex];
             Debug.Log("QM: Incomplete quest loaded: " + currentQuest.questName);
-            UIManager.Instance.ShowReferenceSprite(currentQuest.winningReference); // Vis reference-sprite
+            UIManager.Instance.ShowReferenceSprite(currentQuest.winningReference);
+
+            // Play the current quest's description
+            if (currentQuest.questDescription != null && currentQuest.questDescription.Count > 0)
+            {
+                Debug.Log("QM: Playing quest description for quest: " + currentQuest.questName);
+                DialogManager.Instance.PlayQuestDescription(currentQuest.questDescription[0]);
+            }
 
             bool questCompleted = CheckQuestCompletionByName(currentQuest.questName);
             Debug.Log("QM: Quest completion status: " + questCompleted);
@@ -170,7 +189,19 @@ public class QuestManager : Singleton<QuestManager>
             questInProgress = false;
             currentQuestIndex++;
             ClearAllShapes();
+
+            // Start the next quest and play its description if available
             StartNextQuest();
+
+            if (currentQuestIndex < incompleteQuests.Length)
+            {
+                QuestData nextQuest = incompleteQuests[currentQuestIndex];
+                if (nextQuest.questDescription != null && nextQuest.questDescription.Count > 0)
+                {
+                    Debug.Log("QM: Playing next quest description for quest: " + nextQuest.questName);
+                    DialogManager.Instance.PlayQuestDescription(nextQuest.questDescription[0]);
+                }
+            }
         }
     }
 
@@ -182,7 +213,6 @@ public class QuestManager : Singleton<QuestManager>
             Destroy(shape.gameObject);
         }
 
-        // delete all object with tag "SpawnableObject"
         GameObject[] spawnableObjects = GameObject.FindGameObjectsWithTag("SpawnedObject");
         foreach (GameObject spawnableObject in spawnableObjects)
         {
@@ -190,7 +220,6 @@ public class QuestManager : Singleton<QuestManager>
         }
     }
 
-    // Tilføj denne metode for at tjekke former
     public void CheckShapes()
     {
         if (currentQuestIndex < incompleteQuests.Length)
