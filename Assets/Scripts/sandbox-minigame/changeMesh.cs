@@ -3,14 +3,13 @@ using UnityEngine;
 public class MeshSelector : MonoBehaviour
 {
     public Mesh[] meshes;
-    public QuestData.ShapeType selectedShapeType;
+    public QuestData.ShapeType[] shapeTypes; // Tilføj denne linje
+    public int selectedMeshIndex = 0;
     private MeshFilter meshFilter;
-    private ShapeComponent shapeComponent;
 
     void Awake()
     {
         meshFilter = GetComponent<MeshFilter>();
-        shapeComponent = GetComponent<ShapeComponent>();
         UpdateMesh();
     }
 
@@ -20,33 +19,31 @@ public class MeshSelector : MonoBehaviour
         {
             meshFilter = GetComponent<MeshFilter>();
         }
-        if (shapeComponent == null)
-        {
-            shapeComponent = GetComponent<ShapeComponent>();
-        }
-
-        int index = (int)selectedShapeType;
-        index = Mathf.Clamp(index, 0, meshes.Length - 1);
+        selectedMeshIndex = Mathf.Clamp(selectedMeshIndex, 0, meshes.Length - 1);
 
         if (meshes.Length > 0)
         {
-            meshFilter.mesh = meshes[index];
-        }
-
-        // Opdater ShapeComponent baseret på selectedShapeType
-        if (shapeComponent != null)
-        {
-            shapeComponent.SetShapeType(selectedShapeType);
+            meshFilter.mesh = meshes[selectedMeshIndex];
+            SetShapeType(); // Tilføj denne linje
         }
     }
 
-    public void SetShapeType(QuestData.ShapeType shapeType)
+    public void SetMeshIndex(int index)
     {
-        selectedShapeType = shapeType;
+        selectedMeshIndex = index;
         UpdateMesh();
     }
 
-    // Optionally, if OnValidate is useful in the editor for debugging or testing
+    public void SetShapeType() // Ændr denne metode til public
+    {
+        ShapeComponent shapeComponent = GetComponent<ShapeComponent>();
+        if (shapeComponent != null && shapeTypes.Length > selectedMeshIndex)
+        {
+            shapeComponent.shapeType = shapeTypes[selectedMeshIndex];
+            Debug.Log($"MeshSelector: Set shape type to {shapeComponent.shapeType}");
+        }
+    }
+
     void OnValidate()
     {
         UpdateMesh();

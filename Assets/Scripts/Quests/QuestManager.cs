@@ -2,7 +2,6 @@ using Thrakal;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
-
 public class QuestManager : Singleton<QuestManager>
 {
     public QuestData[] quests;
@@ -13,7 +12,6 @@ public class QuestManager : Singleton<QuestManager>
     public override void Awake()
     {
         base.Awake();
-        // Vi indlæser ikke quests her længere for at gøre det fleksibelt
     }
 
     public void LoadQuestsFromPath(string path)
@@ -63,25 +61,37 @@ public class QuestManager : Singleton<QuestManager>
             return false;
         }
 
-        // Check if the player's created shapes match the required shapes
+        // Find all ShapeComponent instances in the scene (representing the player's created shapes)
         var playerShapes = FindObjectsOfType<ShapeComponent>().ToList();
         Debug.Log($"QM: Player shapes count: {playerShapes.Count}, Required shapes count: {quest.requiredShapes.Count}");
 
+        foreach (var shape in playerShapes)
+        {
+            Debug.Log($"QM: Player shape found: {shape.shapeType}");
+        }
+
+        // If the number of player shapes is less than the required shapes, the quest is not completed
         if (playerShapes.Count < quest.requiredShapes.Count)
         {
+            Debug.Log("QM: Not enough shapes created by player.");
             quest.isCompleted = false;
             return false;
         }
 
+        // Check if each required shape is present among the player's created shapes
         foreach (var requiredShape in quest.requiredShapes)
         {
-            if (!playerShapes.Any(shape => shape.shapeType == requiredShape.shapeType))
+            bool shapeFound = playerShapes.Any(shape => shape.shapeType == requiredShape.shapeType);
+            Debug.Log($"QM: Checking for required shape: {requiredShape.shapeType}, Found: {shapeFound}");
+            if (!shapeFound)
             {
+                Debug.Log($"QM: Required shape '{requiredShape.shapeType}' not found among player's shapes.");
                 quest.isCompleted = false;
                 return false;
             }
         }
 
+        // If all required shapes are present, the quest is completed
         quest.isCompleted = true;
         Debug.Log($"QM: Quest '{quest.questName}' completed.");
         return true;
@@ -159,6 +169,21 @@ public class QuestManager : Singleton<QuestManager>
             questInProgress = false;
             currentQuestIndex++;
             StartNextQuest();
+        }
+    }
+
+    // Tilføj denne metode for at tjekke former
+    public void CheckShapes()
+    {
+        if (currentQuestIndex < incompleteQuests.Length)
+        {
+            QuestData currentQuest = incompleteQuests[currentQuestIndex];
+            bool questCompleted = CheckQuestCompletionByName(currentQuest.questName);
+
+            if (questCompleted)
+            {
+                CompleteCurrentQuest();
+            }
         }
     }
 }

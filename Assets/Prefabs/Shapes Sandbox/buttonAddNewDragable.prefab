@@ -268,6 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecb84971c2f4dbd4da1d30a52f7320ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shapeType: 0
   prefabToSpawn: {fileID: 1907305205479580438, guid: 90780de7def9d1547a4f151c478c02df, type: 3}
-  indexSpawner: 2
   spawnButton: {fileID: 498017392236388192}
