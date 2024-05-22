@@ -19,6 +19,7 @@ public class QuestData : ScriptableObject
     {
         public ShapeType shapeType;
         public Vector2 position; // Position in a 2D plane
+        public string hint;
     }
 
     public string questName;

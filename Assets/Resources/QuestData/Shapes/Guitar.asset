@@ -9,9 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0194798aff19b534d977376375e4b599, type: 3}
-  m_Name: Hejsa 1
+  m_Script: {fileID: 11500000, guid: afb91ead42b4fbc44971896d09d445a5, type: 3}
+  m_Name: Guitar
   m_EditorClassIdentifier: 
-  name: Interaktion A
-  value: 20
-  acceptedShapes: 0000000002000000
+  questName: 
+  winningReference: {fileID: 0}
+  questDescription: []
+  requiredShapes: []
+  requiredAmount: 0
+  currentAmount: 0
+  status: 
+  isCompleted: 0
+  rewardId: 0
