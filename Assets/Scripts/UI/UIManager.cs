@@ -1,7 +1,7 @@
 using Thrakal;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;  // Tilføj denne linje for at bruge UI.Image
+using UnityEngine.UI; // Tilføj denne linje for at bruge UI.Image
 
 public class UIManager : Singleton<UIManager>
 {
@@ -83,13 +83,13 @@ public class UIManager : Singleton<UIManager>
     public void ShowDeleteZone()
     {
         if (deleteZone != null)
-            deleteZone.SetActive(true);  // Aktiverer DeleteZone
+            deleteZone.SetActive(true); // Aktiverer DeleteZone
     }
 
     public void HideDeleteZone()
     {
         if (deleteZone != null)
-            deleteZone.SetActive(false);  // Deaktiverer DeleteZone
+            deleteZone.SetActive(false); // Deaktiverer DeleteZone
     }
 
     public void ShowReferenceSprite(Sprite reference)
@@ -98,6 +98,9 @@ public class UIManager : Singleton<UIManager>
         {
             referenceImage.sprite = reference;
             referenceImage.gameObject.SetActive(true);
+            Color color = referenceImage.color;
+            color.a = 1.0f; // Sætter alpha til 1
+            referenceImage.color = color;
         }
     }
 
@@ -105,6 +108,9 @@ public class UIManager : Singleton<UIManager>
     {
         if (referenceImage != null)
         {
+            Color color = referenceImage.color;
+            color.a = 0.0f; // Sætter alpha til 0
+            referenceImage.color = color;
             referenceImage.gameObject.SetActive(false);
         }
     }
