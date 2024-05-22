@@ -3,12 +3,14 @@ using UnityEngine;
 public class MeshSelector : MonoBehaviour
 {
     public Mesh[] meshes;
-    public int selectedMeshIndex = 0;
+    public QuestData.ShapeType selectedShapeType;
     private MeshFilter meshFilter;
+    private ShapeComponent shapeComponent;
 
     void Awake()
     {
         meshFilter = GetComponent<MeshFilter>();
+        shapeComponent = GetComponent<ShapeComponent>();
         UpdateMesh();
     }
 
@@ -18,17 +20,29 @@ public class MeshSelector : MonoBehaviour
         {
             meshFilter = GetComponent<MeshFilter>();
         }
-        selectedMeshIndex = Mathf.Clamp(selectedMeshIndex, 0, meshes.Length - 1);
+        if (shapeComponent == null)
+        {
+            shapeComponent = GetComponent<ShapeComponent>();
+        }
+
+        int index = (int)selectedShapeType;
+        index = Mathf.Clamp(index, 0, meshes.Length - 1);
 
         if (meshes.Length > 0)
         {
-            meshFilter.mesh = meshes[selectedMeshIndex];
+            meshFilter.mesh = meshes[index];
+        }
+
+        // Opdater ShapeComponent baseret på selectedShapeType
+        if (shapeComponent != null)
+        {
+            shapeComponent.SetShapeType(selectedShapeType);
         }
     }
 
-    public void SetMeshIndex(int index)
+    public void SetShapeType(QuestData.ShapeType shapeType)
     {
-        selectedMeshIndex = index;
+        selectedShapeType = shapeType;
         UpdateMesh();
     }
 

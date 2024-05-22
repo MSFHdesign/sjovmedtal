@@ -1,33 +1,45 @@
 using Thrakal;
 using UnityEngine;
+using System.Linq;
+using System.Collections.Generic;
 
 public class QuestManager : Singleton<QuestManager>
 {
-    public Quest[] quests;
+    public QuestData[] quests;
 
     public override void Awake()
     {
         base.Awake();
-        quests = Resources.LoadAll<Quest>("Quests");
+        // Vi indlæser ikke quests her længere for at gøre det fleksibelt
     }
 
-    public Quest GetQuest(string questName)
+    public void LoadQuestsFromPath(string path)
     {
-        foreach (Quest quest in quests)
+        quests = Resources.LoadAll<QuestData>(path);
+    }
+
+    public QuestData GetQuest(string questName)
+    {
+        foreach (QuestData quest in quests)
         {
-            if (quest.QuestName == questName)
+            if (quest.questName == questName)
                 return quest;
         }
-        Debug.Log("QM: Quest not found: " + questName);
+        Debug.LogError("QM: Quest not found: " + questName);
         return null;
+    }
+
+    public QuestData[] GetIncompleteQuests()
+    {
+        return quests.Where(quest => !quest.isCompleted).ToArray();
     }
 
     public void UpdateStatus(string questName, string status)
     {
-        Quest quest = GetQuest(questName);
+        QuestData quest = GetQuest(questName);
         if (quest != null)
         {
-            quest.Status = status;
+            quest.status = status;
             Debug.Log($"QM: Quest '{questName}' status updated to: {status}");
         }
         else
@@ -36,10 +48,9 @@ public class QuestManager : Singleton<QuestManager>
         }
     }
 
-
     public bool CheckQuestCompletionByName(string questName)
     {
-        Quest quest = GetQuest(questName);
+        QuestData quest = GetQuest(questName);
 
         if (quest == null)
         {
@@ -47,90 +58,44 @@ public class QuestManager : Singleton<QuestManager>
             return false;
         }
 
+        // Check if the player's created shapes match the required shapes
+        var playerShapes = FindObjectsOfType<ShapeComponent>().ToList();
 
-        if (quest.CurrentAmount < quest.RequiredAmount)
+        if (playerShapes.Count < quest.requiredShapes.Count)
         {
-            quest.IsCompleted = false;
-            Debug.Log($"QM: Quest '{quest.QuestName}' not completed: {quest.CurrentAmount} / {quest.RequiredAmount}");
-            CompleteQuest(quest);
+            quest.isCompleted = false;
             return false;
         }
 
-        if (quest.IsCompleted)
+        foreach (var requiredShape in quest.requiredShapes)
         {
-            Debug.Log($"QM: Quest '{quest.QuestName}' already completed.");
-            return true;
+            if (!playerShapes.Any(shape => shape.shapeType == requiredShape.shapeType))
+            {
+                quest.isCompleted = false;
+                return false;
+            }
         }
 
-        return false;
+        quest.isCompleted = true;
+        Debug.Log($"QM: Quest '{quest.questName}' completed.");
+        return true;
     }
 
-    private void UpdateCurrentAmount(string questName, int amount)
+    public void UpdateCurrentAmount(string questName, int amount)
     {
-        Quest quest = GetQuest(questName);
+        QuestData quest = GetQuest(questName);
         if (quest == null)
         {
             Debug.LogError($"Quest with name '{questName}' not found.");
             return;
         }
 
-        quest.CurrentAmount += amount;
-        Debug.Log($"Quest '{quest.QuestName}' updated: Current amount is now {quest.CurrentAmount}");
+        quest.currentAmount += amount;
+        Debug.Log($"Quest '{quest.questName}' updated: Current amount is now {quest.currentAmount}");
 
-        if (quest.CurrentAmount >= quest.RequiredAmount)
+        if (quest.currentAmount >= quest.requiredAmount)
         {
-            CompleteQuest(quest);
+            CheckQuestCompletionByName(questName);
         }
     }
-
-
-    private void CompleteQuest(Quest quest)
-    {
-        if (quest.IsCompleted)
-        {
-            GiveReward(quest.RewardId);
-            Debug.Log($"Quest completed: {quest.QuestName}");
-        }
-    }
-
-    private void GiveReward(int rewardId)
-    {
-        // Implementer logikken for at give belønninger her
-        Debug.Log($"Reward given: {rewardId}");
-    }
-    // get info about quest: RequiredAmount & CurrentAmount;
-    public string GetQuestInfo(string questName)
-    {
-        Quest quest = GetQuest(questName);
-        if (quest == null)
-        {
-            Debug.LogError($"Quest with name '{questName}' not found.");
-            return null;
-        }
-        return $"{quest.CurrentAmount}/{quest.RequiredAmount}";
-    }
-    // get info individual required amount
-    public int GetQuestRequiredAmount(string questName)
-    {
-        Quest quest = GetQuest(questName);
-        if (quest == null)
-        {
-            Debug.LogError($"Quest with name '{questName}' not found.");
-            return 0;
-        }
-        return quest.RequiredAmount;
-    }
-    // get info individual current amount
-    public int GetQuestCurrentAmount(string questName)
-    {
-        Quest quest = GetQuest(questName);
-        if (quest == null)
-        {
-            Debug.LogError($"Quest with name '{questName}' not found.");
-            return 0;
-        }
-        return quest.CurrentAmount;
-    }
-
-
 }

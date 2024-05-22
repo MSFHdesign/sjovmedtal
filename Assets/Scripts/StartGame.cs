@@ -1,43 +1,38 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement; // For at bruge SceneManager
+using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
-    private Sequence sequence; // Holder den sekvens, der hentes fra DialogManager
-    public Quest startingQuest;
+    private Sequence sequence;
+    private QuestData[] incompleteQuests;
+    private int currentQuestIndex = 0;
 
-    public string titleName; // optional titel, ellers vises scenens navn fra lib.
-    public float wordsPerSecond = 3; // Hvor mange ord der vises pr. sekund
-    public float minWaitTime = 2; // Minimum ventetid
-    public string getQuest;
+    public string titleName;
+    public float wordsPerSecond = 3;
+    public float minWaitTime = 2;
+    public string questPath = "QuestData/Shapes"; // Standard sti til quests
 
     void Start()
     {
         UIManager.Instance.showGamePanel();
 
-        // Indlæser og starter en specifik quest
-        startingQuest = QuestManager.Instance.GetQuest(getQuest);
-        if (startingQuest != null)
+        // Indlæs quests fra den angivne sti
+        QuestManager.Instance.LoadQuestsFromPath(questPath);
+
+        // Indlæser alle ikke-fuldførte quest
+        incompleteQuests = QuestManager.Instance.GetIncompleteQuests();
+        if (incompleteQuests.Length > 0)
         {
-            Debug.Log("SG: Quest loaded: " + startingQuest.QuestName);
-            bool questCompleted = QuestManager.Instance.CheckQuestCompletionByName(getQuest);
-         
-            if (!questCompleted && startingQuest.Description != null && startingQuest.Description.Length > 0)
-            {
-                StartCoroutine(DisplayQuestDescription());
-        
-            }
+            StartNextQuest();
         }
         else
         {
-            Debug.LogError("Quest not found: " + getQuest);
+            Debug.LogError("No incomplete quests found.");
         }
 
-        // Bruger scenens navn til at hente den tilsvarende Sequence
         string sceneName = SceneManager.GetActiveScene().name;
-        UIManager.Instance.ShowDeleteZone(); // Viser slet knappen
-        // Viser titlen baseret på om titleName er sat eller ej
+        UIManager.Instance.ShowDeleteZone();
         if (string.IsNullOrEmpty(titleName))
         {
             UIManager.Instance.showTitle(sceneName);
@@ -48,7 +43,7 @@ public class StartGame : MonoBehaviour
         }
 
         sequence = DialogManager.Instance.GetSequence(sceneName);
-        if (sequence != null) // Sikrer, at sekvensen er hentet korrekt
+        if (sequence != null)
         {
             StartCoroutine(DisplayDialogs());
         }
@@ -58,57 +53,59 @@ public class StartGame : MonoBehaviour
         }
     }
 
+    void StartNextQuest()
+    {
+        if (currentQuestIndex < incompleteQuests.Length)
+        {
+            QuestData currentQuest = incompleteQuests[currentQuestIndex];
+            Debug.Log("SG: Incomplete quest loaded: " + currentQuest.questName);
+            UIManager.Instance.ShowReferenceSprite(currentQuest.winningReference); // Vis reference-sprite
+
+            bool questCompleted = QuestManager.Instance.CheckQuestCompletionByName(currentQuest.questName);
+
+            if (!questCompleted)
+            {
+                StartCoroutine(DisplayQuestDescription(currentQuest));
+            }
+        }
+        else
+        {
+            Debug.Log("SG: All quests completed.");
+        }
+    }
+
     IEnumerator DisplayDialogs()
     {
         foreach (var dialogue in sequence.dialog)
         {
             UIManager.Instance.showDialog(dialogue);
 
-            // Beregner ventetiden baseret på antal ord i dialogen
-            float words = dialogue.Split(' ').Length; // Antager at ord er adskilt af mellemrum
-            float dynamicWaitTime = Mathf.Max(words / wordsPerSecond, minWaitTime); // Sørger for at ventetiden aldrig er mindre end minWaitTime
-            yield return new WaitForSeconds(dynamicWaitTime); // Venter dynamisk tid baseret på dialogens længde
+            float words = dialogue.Split(' ').Length;
+            float dynamicWaitTime = Mathf.Max(words / wordsPerSecond, minWaitTime);
+            yield return new WaitForSeconds(dynamicWaitTime);
         }
 
-        // Vent lidt ekstra, før du viser questbeskrivelserne
         yield return new WaitForSeconds(1f);
 
-        // Vis questbeskrivelser, hvis der er nogen
-        if (startingQuest != null && startingQuest.Description != null && startingQuest.Description.Length > 0)
-        {
-            foreach (var description in startingQuest.Description)
-            {
-                UIManager.Instance.showDialog(description);
-
-               
-                float words = description.Split(' ').Length; 
-                float dynamicWaitTime = Mathf.Max(words / wordsPerSecond, minWaitTime);
-                yield return new WaitForSeconds(dynamicWaitTime); 
-            }
-        }
-
-        UIManager.Instance.hideDialog(); // Skjuler dialogen når alle er vist
+        UIManager.Instance.hideDialog();
     }
 
-    IEnumerator DisplayQuestDescription()
+    IEnumerator DisplayQuestDescription(QuestData quest)
     {
-        // Vent lidt, før du viser questbeskrivelserne
         yield return new WaitForSeconds(1f);
 
-        // Vis questbeskrivelser, hvis der er nogen
-        if (startingQuest != null && startingQuest.Description != null && startingQuest.Description.Length > 0)
+        if (quest != null && quest.winningReference != null)
         {
-            foreach (var description in startingQuest.Description)
-            {
-                UIManager.Instance.showDialog(description);
-
-                // Beregner ventetiden baseret på antal ord i beskrivelsen
-                float words = description.Split(' ').Length; // Antager at ord er adskilt af mellemrum
-                float dynamicWaitTime = Mathf.Max(words / wordsPerSecond, minWaitTime); // Sørger for at ventetiden aldrig er mindre end minWaitTime
-                yield return new WaitForSeconds(dynamicWaitTime); // Venter dynamisk tid baseret på beskrivelsens længde
-            }
+            UIManager.Instance.ShowReferenceSprite(quest.winningReference);
         }
 
-        UIManager.Instance.hideDialog(); // Skjuler dialogen når alle er vist
+        // Opdater score
+        UIManager.Instance.UpdateScore(quest.currentAmount, quest.requiredAmount);
+
+        // Vent lidt, før du starter næste quest
+        yield return new WaitForSeconds(2f);
+
+        currentQuestIndex++;
+        StartNextQuest();
     }
 }
