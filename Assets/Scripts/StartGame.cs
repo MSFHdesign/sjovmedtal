@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class StartGame : MonoBehaviour
 {
     private Sequence sequence;
+    private DialogManager dialogManager;
 
     public string titleName;
     public float wordsPerSecond = 3;
@@ -21,7 +22,7 @@ public class StartGame : MonoBehaviour
 
         // Start den første quest
         QuestManager.Instance.StartNextQuest();
-  
+
         string sceneName = SceneManager.GetActiveScene().name;
         UIManager.Instance.ShowDeleteZone();
         if (string.IsNullOrEmpty(titleName))
@@ -33,7 +34,8 @@ public class StartGame : MonoBehaviour
             UIManager.Instance.showTitle(titleName);
         }
 
-        sequence = DialogManager.Instance.GetSequence(sceneName);
+        dialogManager = DialogManager.Instance;
+        sequence = dialogManager.GetSequence(sceneName);
         if (sequence != null)
         {
             StartCoroutine(DisplayDialogs());
@@ -58,5 +60,8 @@ public class StartGame : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         UIManager.Instance.hideDialog();
+
+        
+        
     }
 }
