@@ -21,7 +21,7 @@ public class StartGame : MonoBehaviour
 
         // Start den første quest
         QuestManager.Instance.StartNextQuest();
-
+  
         string sceneName = SceneManager.GetActiveScene().name;
         UIManager.Instance.ShowDeleteZone();
         if (string.IsNullOrEmpty(titleName))

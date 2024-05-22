@@ -19,6 +19,7 @@ public class QuestManager : Singleton<QuestManager>
         quests = Resources.LoadAll<QuestData>(path);
         incompleteQuests = GetIncompleteQuests();
         Debug.Log("QM: Number of incomplete quests found: " + incompleteQuests.Length);
+ 
     }
 
     public QuestData GetQuest(string questName)
