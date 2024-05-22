@@ -1,0 +1,85 @@
+{
+    "name": "touchactions",
+    "maps": [
+        {
+            "name": "Touch",
+            "id": "0b7e376c-4b39-4860-b76f-a6f2b36e2e9a",
+            "actions": [
+                {
+                    "name": "Touch Position",
+                    "type": "Value",
+                    "id": "c75ef8e0-81c5-4ed7-b30b-d44cddce7830",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Touch Press",
+                    "type": "Button",
+                    "id": "4064e415-7af1-4677-904b-5f22c72f6891",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Touch_Pinch",
+                    "type": "Value",
+                    "id": "f13f2ede-7b85-49b7-897f-d85b280b5e1a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "637dacbd-b2d3-4d77-95a1-78b135cbe8fd",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "52de4ca3-dc60-44c0-a889-51ab2ebeee0d",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "357f63fe-9e04-49f4-8ba7-0f857ef4da1f",
+                    "path": "<Touchscreen>/touch0/position",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch_Pinch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f4fb33f1-c9ae-4d95-8e83-4e9ec2350cab",
+                    "path": "<Touchscreen>/touch1/position",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch_Pinch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

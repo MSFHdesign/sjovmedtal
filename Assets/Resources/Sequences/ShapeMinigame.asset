@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0194798aff19b534d977376375e4b599, type: 3}
+  m_Name: ShapeMinigame
+  m_EditorClassIdentifier: 
+  name: ShapeMiniGame
+  value: 0
+  acceptedShapes: 
+  dialog:
+  - Hej og velkommen til Sjov med former!
+  - Du kan lege med formerne og skabe nogle sjove figure.
+  - "Du kan ogs\xE5 f\xF8lge opgaverne og skabe nogle figur med mig og optjene XXXXX
+    til dit XXXXXXX"
+  rewardId: 0
