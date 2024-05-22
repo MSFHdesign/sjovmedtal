@@ -151,11 +151,11 @@ public class QuestManager : Singleton<QuestManager>
             Debug.Log("QM: Incomplete quest loaded: " + currentQuest.questName);
             UIManager.Instance.ShowReferenceSprite(currentQuest.winningReference);
 
-            // Play the current quest's description
+            // Play the current quest's description along with sequences
             if (currentQuest.questDescription != null && currentQuest.questDescription.Count > 0)
             {
                 Debug.Log("QM: Playing quest description for quest: " + currentQuest.questName);
-                DialogManager.Instance.PlayQuestDescription(currentQuest.questDescription[0]);
+                DialogManager.Instance.PlaySequencesAndQuestDescription(currentQuest.questDescription[0]);
             }
 
             bool questCompleted = CheckQuestCompletionByName(currentQuest.questName);
@@ -199,7 +199,7 @@ public class QuestManager : Singleton<QuestManager>
                 if (nextQuest.questDescription != null && nextQuest.questDescription.Count > 0)
                 {
                     Debug.Log("QM: Playing next quest description for quest: " + nextQuest.questName);
-                    DialogManager.Instance.PlayQuestDescription(nextQuest.questDescription[0]);
+                    DialogManager.Instance.PlaySequencesAndQuestDescription(nextQuest.questDescription[0]);
                 }
             }
         }

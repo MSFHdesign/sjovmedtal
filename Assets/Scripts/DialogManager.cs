@@ -49,12 +49,12 @@ public class DialogManager : Singleton<DialogManager>
         }
     }
 
-    public void PlaySequences()
+    public void PlaySequencesAndQuestDescription(string questDescription)
     {
-        StartCoroutine(PlaySequencesCoroutine());
+        StartCoroutine(PlaySequencesAndQuestDescriptionCoroutine(questDescription));
     }
 
-    private IEnumerator PlaySequencesCoroutine()
+    private IEnumerator PlaySequencesAndQuestDescriptionCoroutine(string questDescription)
     {
         Debug.Log("DialogManager: Starting to play sequences.");
 
@@ -67,7 +67,15 @@ public class DialogManager : Singleton<DialogManager>
             }
         }
 
-        Debug.Log("DialogManager: Finished playing sequences.");
+        Debug.Log("DialogManager: Finished playing sequences. Now playing quest description.");
+
+        // Play the quest description
+        if (!string.IsNullOrEmpty(questDescription))
+        {
+            yield return StartCoroutine(PlayDialog(questDescription));
+        }
+
+        Debug.Log("DialogManager: Finished playing quest description.");
     }
 
     private IEnumerator PlayDialog(string dialog)
@@ -79,17 +87,5 @@ public class DialogManager : Singleton<DialogManager>
         float dynamicWaitTime = Mathf.Max(words / 3, 2); // Adjust according to your wordsPerSecond and minWaitTime
         yield return new WaitForSeconds(dynamicWaitTime);
         UIManager.Instance.hideDialog();
-    }
-
-    // Method to play current quest's description
-    public void PlayQuestDescription(string description)
-    {
-        Debug.Log("DialogManager: Playing quest description: " + description);
-        StartCoroutine(PlayQuestDescriptionCoroutine(description));
-    }
-
-    private IEnumerator PlayQuestDescriptionCoroutine(string description)
-    {
-        yield return StartCoroutine(PlayDialog(description));
     }
 }
