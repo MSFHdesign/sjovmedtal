@@ -169,7 +169,24 @@ public class QuestManager : Singleton<QuestManager>
             MarkQuestAsCompleted(currentQuest.questName);
             questInProgress = false;
             currentQuestIndex++;
+            ClearAllShapes();
             StartNextQuest();
+        }
+    }
+
+    public void ClearAllShapes()
+    {
+        var playerShapes = FindObjectsOfType<ShapeComponent>().ToList();
+        foreach (var shape in playerShapes)
+        {
+            Destroy(shape.gameObject);
+        }
+
+        // delete all object with tag "SpawnableObject"
+        GameObject[] spawnableObjects = GameObject.FindGameObjectsWithTag("SpawnableObject");
+        foreach (GameObject spawnableObject in spawnableObjects)
+        {
+            Destroy(spawnableObject);
         }
     }
 

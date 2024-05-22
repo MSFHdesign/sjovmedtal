@@ -98,11 +98,12 @@ public class UIManager : Singleton<UIManager>
         {
             referenceImage.sprite = reference;
             referenceImage.gameObject.SetActive(true);
-            Color color = referenceImage.color;
-            color.a = 1.0f; // Sætter alpha til 1
-            referenceImage.color = color;
+            referenceImage.GetComponent<CanvasGroup>().alpha = 1;
         }
     }
+
+
+
 
     public void HideReferenceSprite()
     {
