@@ -183,7 +183,7 @@ public class QuestManager : Singleton<QuestManager>
         }
 
         // delete all object with tag "SpawnableObject"
-        GameObject[] spawnableObjects = GameObject.FindGameObjectsWithTag("SpawnableObject");
+        GameObject[] spawnableObjects = GameObject.FindGameObjectsWithTag("SpawnedObject");
         foreach (GameObject spawnableObject in spawnableObjects)
         {
             Destroy(spawnableObject);
