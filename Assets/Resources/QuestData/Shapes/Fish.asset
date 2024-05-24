@@ -17,8 +17,9 @@ MonoBehaviour:
   questDescription:
   - SSSSSSSSSSSSS
   requiredShapes:
-  - shapeType: 1
+  - shapeType: 0
     position: {x: 0, y: 0}
+    hint: 
   requiredAmount: 1
   currentAmount: 0
   status: 
