@@ -481,6 +481,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -10
       objectReference: {fileID: 0}
+    - target: {fileID: 3594328498595287544, guid: fc68f80e34f6746ec8adf4fe0a638e92, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4131626001735936493, guid: fc68f80e34f6746ec8adf4fe0a638e92, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
