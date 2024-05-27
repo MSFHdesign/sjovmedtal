@@ -10,24 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afb91ead42b4fbc44971896d09d445a5, type: 3}
-  m_Name: Boat
+  m_Name: New Quest 1
   m_EditorClassIdentifier: 
-  questName: boat
-  winningReference: {fileID: 21300000, guid: 1f43a5d61406f564db052264918b1626, type: 3}
-  questDescription:
-  - TTTTTTTTTTTTT
-  requiredShapes:
-  - shapeType: 0
-    position: {x: 0, y: 0}
-    hint: 
-  - shapeType: 0
-    position: {x: 0, y: 0}
-    hint: 
-  - shapeType: 0
-    position: {x: 0, y: 0}
-    hint: 
-  requiredAmount: 1
+  questName: 
+  winningConditions: []
+  requiredShapes: []
+  requiredAmount: 0
   currentAmount: 0
   status: 
-  isCompleted: 1
+  isCompleted: 0
   rewardId: 0
