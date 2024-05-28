@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 963802722}
   - component: {fileID: 963802721}
   m_Layer: 0
-  m_Name: blynatholder@4x
+  m_Name: blynatholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
