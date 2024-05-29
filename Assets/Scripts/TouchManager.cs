@@ -185,6 +185,7 @@ public class TouchManager : MonoBehaviour
         if (selectedObject != null)
         {
             SetObjectMaterial(selectedObject, isOverDeleteZone ? overDeleteZoneMaterial : selectedMaterial);
+            Debug.Log($"SetObjectInDeleteZone: {isInZone}");
         }
     }
 
