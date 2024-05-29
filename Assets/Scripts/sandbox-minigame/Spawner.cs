@@ -25,11 +25,10 @@ public class Spawner : MonoBehaviour
         GameObject spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
         spawnedObject.tag = "SpawnedObject"; // Sæt tagget
 
-        MeshSelector meshSelector = spawnedObject.GetComponentInChildren<MeshSelector>();
-        if (meshSelector != null)
+        SpriteSelector spriteSelector = spawnedObject.GetComponentInChildren<SpriteSelector>();
+        if (spriteSelector != null)
         {
-            meshSelector.SetMeshIndex(indexSpawner);
-            meshSelector.SetShapeType();
+            spriteSelector.SetSpriteIndex(indexSpawner); // Sæt den rigtige sprite baseret på indexSpawner
         }
 
         // Efter et objekt er oprettet, tjek for quest completion

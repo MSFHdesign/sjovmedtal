@@ -3,7 +3,7 @@ using UnityEngine;
 public class MeshSelector : MonoBehaviour
 {
     public Mesh[] meshes;
-    public QuestData.ShapeType[] shapeTypes; // Tilføj denne linje
+    public QuestData.ShapeType[] shapeTypes;
     public int selectedMeshIndex = 0;
     private MeshFilter meshFilter;
 
@@ -24,7 +24,7 @@ public class MeshSelector : MonoBehaviour
         if (meshes.Length > 0)
         {
             meshFilter.mesh = meshes[selectedMeshIndex];
-            SetShapeType(); // Tilføj denne linje
+            SetShapeType();
         }
     }
 
@@ -34,7 +34,7 @@ public class MeshSelector : MonoBehaviour
         UpdateMesh();
     }
 
-    public void SetShapeType() // Ændr denne metode til public
+    public void SetShapeType()
     {
         ShapeComponent shapeComponent = GetComponent<ShapeComponent>();
         if (shapeComponent != null && shapeTypes.Length > selectedMeshIndex)
