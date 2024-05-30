@@ -1484,6 +1484,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 91846497}
+    - target: {fileID: 3594328498595287544, guid: fc68f80e34f6746ec8adf4fe0a638e92, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8562813360932303077, guid: fc68f80e34f6746ec8adf4fe0a638e92, type: 3}
       propertyPath: m_Name
       value: Background
