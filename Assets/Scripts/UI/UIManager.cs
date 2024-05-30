@@ -1,7 +1,7 @@
 using Thrakal;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI; // Tilføj denne linje for at bruge UI.Image
+using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -26,7 +26,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private CanvasGroup ScoreGroup;
 
     // Reference sprite for the winning condition
-    [SerializeField] private Image referenceImage; // Drag and drop the UI Image component in the inspector
+    [SerializeField] private Image referenceImage;
 
     public void showGamePanel()
     {
@@ -83,13 +83,13 @@ public class UIManager : Singleton<UIManager>
     public void ShowDeleteZone()
     {
         if (deleteZone != null)
-            deleteZone.SetActive(true); // Aktiverer DeleteZone
+            deleteZone.SetActive(true);
     }
 
     public void HideDeleteZone()
     {
         if (deleteZone != null)
-            deleteZone.SetActive(false); // Deaktiverer DeleteZone
+            deleteZone.SetActive(false);
     }
 
     public void ShowReferenceSprite(Sprite reference)
@@ -102,15 +102,12 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-
-
-
     public void HideReferenceSprite()
     {
         if (referenceImage != null)
         {
             Color color = referenceImage.color;
-            color.a = 0.0f; // Sætter alpha til 0
+            color.a = 0.0f;
             referenceImage.color = color;
             referenceImage.gameObject.SetActive(false);
         }
@@ -136,5 +133,17 @@ public class UIManager : Singleton<UIManager>
             ScoreGroup.interactable = false;
             ScoreGroup.blocksRaycasts = false;
         }
+    }
+
+    // Ny metode til at skjule alle UI-elementer
+    public void HideAllUIElements()
+    {
+        HideReferenceSprite();
+        HideDeleteZone();
+        hideDialog();
+        disableTitle();
+        hideGamePanel();
+        hideButtons();
+        HideScore();
     }
 }
