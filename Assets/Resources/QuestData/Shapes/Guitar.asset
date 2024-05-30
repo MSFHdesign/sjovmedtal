@@ -18,7 +18,16 @@ MonoBehaviour:
   - "Elsker du ikke ogs\xE5 bare musik, pr\xF8v og se om du kan lave din helt egen
     guitar!"
   requiredShapes:
-  - shapeType: 2
+  - shapeType: 3
+    position: {x: 0, y: 0}
+    hint: 
+  - shapeType: 0
+    position: {x: 0, y: 0}
+    hint: 
+  - shapeType: 5
+    position: {x: 0, y: 0}
+    hint: 
+  - shapeType: 5
     position: {x: 0, y: 0}
     hint: 
   requiredAmount: 1

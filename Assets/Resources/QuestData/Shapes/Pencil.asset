@@ -21,6 +21,9 @@ MonoBehaviour:
   - shapeType: 2
     position: {x: 0, y: 0}
     hint: 
+  - shapeType: 5
+    position: {x: 0, y: 0}
+    hint: 
   requiredAmount: 1
   currentAmount: 0
   status: 

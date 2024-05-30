@@ -17,7 +17,22 @@ MonoBehaviour:
   questDescription:
   - SSSSSSSSSSSSS
   requiredShapes:
+  - shapeType: 3
+    position: {x: 0, y: 0}
+    hint: 
   - shapeType: 0
+    position: {x: 0, y: 0}
+    hint: 
+  - shapeType: 1
+    position: {x: 0, y: 0}
+    hint: 
+  - shapeType: 1
+    position: {x: 0, y: 0}
+    hint: 
+  - shapeType: 1
+    position: {x: 0, y: 0}
+    hint: 
+  - shapeType: 2
     position: {x: 0, y: 0}
     hint: 
   requiredAmount: 1

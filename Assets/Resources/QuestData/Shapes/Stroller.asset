@@ -17,7 +17,19 @@ MonoBehaviour:
   questDescription:
   - 'Her kan man sidde og hygge sig, eller hvis man ikke er alt for stor '
   requiredShapes:
-  - shapeType: 3
+  - shapeType: 4
+    position: {x: 0, y: 0}
+    hint: 
+  - shapeType: 4
+    position: {x: 0, y: 0}
+    hint: 
+  - shapeType: 5
+    position: {x: 0, y: 0}
+    hint: 
+  - shapeType: 0
+    position: {x: 0, y: 0}
+    hint: 
+  - shapeType: 0
     position: {x: 0, y: 0}
     hint: 
   requiredAmount: 1

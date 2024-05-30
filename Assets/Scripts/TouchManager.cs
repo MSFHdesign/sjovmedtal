@@ -61,6 +61,8 @@ public class TouchManager : MonoBehaviour
 
             defaultMaterial = GetObjectMaterial(selectedObject);
             SetObjectMaterial(selectedObject, selectedMaterial);
+
+            Debug.Log($"Object selected: {selectedObject.name}");
         }
 
         if (firstFingerId == -1)
@@ -89,6 +91,7 @@ public class TouchManager : MonoBehaviour
             if (selectedObject != null)
             {
                 selectedObject.Rotate(Vector3.forward, angleDifference);
+                Debug.Log($"Rotating object: {selectedObject.name}");
             }
 
             startDirection = currentDirection;
@@ -104,10 +107,12 @@ public class TouchManager : MonoBehaviour
                 if (rb != null)
                 {
                     rb.MovePosition(new Vector2(newPosition.x, newPosition.y));
+                    Debug.Log($"Moving object with Rigidbody2D: {selectedObject.name} to {newPosition}");
                 }
                 else
                 {
                     selectedObject.position = new Vector3(newPosition.x, newPosition.y, selectedObject.position.z);
+                    Debug.Log($"Moving object without Rigidbody2D: {selectedObject.name} to {newPosition}");
                 }
             }
         }
@@ -119,6 +124,7 @@ public class TouchManager : MonoBehaviour
             if (selectedObject != null)
             {
                 selectedObject.localScale *= scaleFactor;
+                Debug.Log($"Scaling object: {selectedObject.name} by factor {scaleFactor}");
             }
 
             initialDistance = currentDistance;
@@ -129,6 +135,7 @@ public class TouchManager : MonoBehaviour
     {
         if (isOverDeleteZone && selectedObject != null)
         {
+            Debug.Log($"Object {selectedObject.name} is over delete zone, destroying.");
             Destroy(selectedObject.gameObject);
         }
 
@@ -140,9 +147,9 @@ public class TouchManager : MonoBehaviour
         {
             secondFingerId = -1;
         }
-        else if (touch.fingerId == thirdFingerId)
+        else if (thirdFingerId == -1)
         {
-            thirdFingerId = -1;
+            thirdFingerId = touch.fingerId;
         }
 
         if (firstFingerId == -1 || secondFingerId == -1)
@@ -160,6 +167,7 @@ public class TouchManager : MonoBehaviour
             selectedObject = null;
             isObjectSelected = false;
             isOverDeleteZone = false;
+            Debug.Log("No touch remaining, deselecting object.");
         }
     }
 
@@ -185,7 +193,7 @@ public class TouchManager : MonoBehaviour
         if (selectedObject != null)
         {
             SetObjectMaterial(selectedObject, isOverDeleteZone ? overDeleteZoneMaterial : selectedMaterial);
-            Debug.Log($"SetObjectInDeleteZone: {isInZone}");
+            Debug.Log($"SetObjectInDeleteZone: {isInZone} for {selectedObject.name}");
         }
     }
 
