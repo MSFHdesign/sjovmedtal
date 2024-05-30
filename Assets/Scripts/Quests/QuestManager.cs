@@ -67,7 +67,7 @@ public class QuestManager : Singleton<QuestManager>
             Debug.LogError($"QM: Quest with name '{questName}' not found.");
         }
     }
-    // Der skal justeres HER på hvordan vi kontrollere om spilleren har lavet de rigtige shapes
+
     public bool CheckQuestCompletionByName(string questName)
     {
         QuestData quest = GetQuest(questName);
@@ -231,6 +231,17 @@ public class QuestManager : Singleton<QuestManager>
             {
                 CompleteCurrentQuest();
             }
+        }
+    }
+
+    // Ny metode til at stoppe quests
+    public void StopCurrentQuest()
+    {
+        if (questInProgress)
+        {
+            questInProgress = false;
+            ClearAllShapes();
+            Debug.Log("QM: Current quest stopped.");
         }
     }
 }

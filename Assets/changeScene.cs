@@ -12,6 +12,15 @@ public class ChangeScene : MonoBehaviour
     {
         if (sceneIndex >= 0 && sceneIndex < SceneManager.sceneCountInBuildSettings)
         {
+            // Stop current quest before loading the new scene
+            QuestManager.Instance.StopCurrentQuest();
+            UIManager.Instance.HideReferenceSprite();
+            UIManager.Instance.HideDeleteZone();
+            UIManager.Instance.hideDialog();
+            UIManager.Instance.disableTitle();
+            UIManager.Instance.hideGamePanel();
+            UIManager.Instance.hideButtons();
+
             SceneManager.LoadScene(sceneIndex);
         }
         else
