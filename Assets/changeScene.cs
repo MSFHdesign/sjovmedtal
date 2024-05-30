@@ -19,6 +19,25 @@ public class ChangeScene : MonoBehaviour
             Debug.LogWarning("Invalid scene index!");
         }
     }
+
+    // Metode til at håndtere touch input
+    void Update()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Ended)
+            {
+                Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero);
+
+                if (hit.collider != null && hit.collider.gameObject == gameObject)
+                {
+                    LoadScene();
+                }
+            }
+        }
+    }
 }
 
 // Editor script indeni samme fil
