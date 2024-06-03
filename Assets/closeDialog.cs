@@ -7,6 +7,7 @@ public class DialogButtonController : MonoBehaviour
         if (DialogManager.Instance != null)
         {
             DialogManager.Instance.StopDialog();
+         
         }
     }
 }
