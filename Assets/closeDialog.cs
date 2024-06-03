@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class closeDialog : MonoBehaviour
+public class DialogButtonController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnStopDialogButtonClick()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (DialogManager.Instance != null)
+        {
+            DialogManager.Instance.StopDialog();
+        }
     }
 }

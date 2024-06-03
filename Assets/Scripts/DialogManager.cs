@@ -9,6 +9,9 @@ public class DialogManager : Singleton<DialogManager>
     public Queue<string> dialogQueue;
     public string questPath = "QuestData/Shapes"; // Standard sti til quests
 
+    private bool isDialogActive = false; // Boolean to track if dialog is active
+    private Coroutine currentDialogCoroutine; // To track the current running coroutine
+
     public override void Awake()
     {
         base.Awake();
@@ -51,18 +54,21 @@ public class DialogManager : Singleton<DialogManager>
 
     public void PlaySequencesAndQuestDescription(string questDescription)
     {
-        StartCoroutine(PlaySequencesAndQuestDescriptionCoroutine(questDescription));
+        StopDialog(); // Stop any ongoing dialog before starting a new one
+        currentDialogCoroutine = StartCoroutine(PlaySequencesAndQuestDescriptionCoroutine(questDescription));
     }
 
     private IEnumerator PlaySequencesAndQuestDescriptionCoroutine(string questDescription)
     {
         Debug.Log("DialogManager: Starting to play sequences.");
+        isDialogActive = true;
 
         // Assuming each sequence has a dialog array to play
         foreach (var sequence in sequences)
         {
             foreach (var dialogue in sequence.dialog)
             {
+                if (!isDialogActive) yield break; // Exit coroutine if dialog is stopped
                 yield return StartCoroutine(PlayDialog(dialogue));
             }
         }
@@ -76,16 +82,30 @@ public class DialogManager : Singleton<DialogManager>
         }
 
         Debug.Log("DialogManager: Finished playing quest description.");
+        isDialogActive = false;
     }
 
     private IEnumerator PlayDialog(string dialog)
     {
-        // Implement your dialog playing logic here
         Debug.Log("Playing dialog: " + dialog);
         UIManager.Instance.showDialog(dialog); // Example to show the dialog using UIManager
         float words = dialog.Split(' ').Length;
         float dynamicWaitTime = Mathf.Max(words / 3, 2); // Adjust according to your wordsPerSecond and minWaitTime
         yield return new WaitForSeconds(dynamicWaitTime);
         UIManager.Instance.hideDialog();
+    }
+
+    public void StopDialog()
+    {
+        if (currentDialogCoroutine != null)
+        {
+            StopCoroutine(currentDialogCoroutine);
+            currentDialogCoroutine = null;
+        }
+
+        isDialogActive = false;
+        dialogQueue.Clear(); // Optionally clear the queue
+        UIManager.Instance.hideDialog(); // Hide any visible dialog
+        Debug.Log("DialogManager: Dialog stopped.");
     }
 }
